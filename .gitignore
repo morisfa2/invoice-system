@@ -1,0 +1,4 @@
+node_modules/
+build/
+email-service/node_modules/
+invoice-service/node_modules/

@@ -1,0 +1,18 @@
+{
+  "name": "email-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nestjs/config": "^3.3.0",
+    "@nestjs/microservices": "^10.4.15",
+    "amqplib": "^0.10.5",
+    "nodemailer": "^6.9.16"
+  }
+}
