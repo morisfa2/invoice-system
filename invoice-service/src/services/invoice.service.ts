@@ -27,7 +27,7 @@ export class InvoiceService {
     return this.invoiceModel.find();
   }
 
-  @Cron('0 12 * * *')
+  @Cron('*/1 * * * *')
   async generateDailyReport() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
