@@ -85,12 +85,6 @@ docker-compose logs -f email-service
 - Go to Queues tab
 - Look for 'daily_sales_report' queue
 
-## Services
-
-- Invoice Service (port 3000): Handles invoice CRUD + daily report generation
-- Email Service: Processes daily reports & sends emails
-- MongoDB (port 27017): Database
-- RabbitMQ (ports 5672, 15672): Message broker
 
 ## Monitoring
 
@@ -98,12 +92,3 @@ docker-compose logs -f email-service
   - username: guest 
   - passowrd: guest
 
-## Notes
-
-- Daily reports generate every minute (for testing)
-- Email service uses mock SMTP settings
-- Reports include:
-  - Total daily sales
-  - Items sold (grouped by SKU)
-  - Sales summary
-```
