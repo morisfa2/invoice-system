@@ -32,7 +32,9 @@ This will:
 - Wait for daily report generation
 - Show service logs
 
-## Create Invoice Manually
+## API Usage
+
+### Create New Invoice
 
 ```bash
 curl -X POST http://localhost:3000/invoices \
@@ -55,6 +57,34 @@ curl -X POST http://localhost:3000/invoices \
 }'
 ```
 
+### Get All Invoices
+```bash
+curl http://localhost:3000/invoices | json_pp
+```
+
+### Get Specific Invoice
+```bash
+# Replace {id} with actual invoice ID
+curl http://localhost:3000/invoices/{id} | json_pp
+```
+
+### Monitor Daily Reports
+
+1. Check invoice service logs:
+```bash
+docker-compose logs -f invoice-service
+```
+
+2. Check email service logs:
+```bash
+docker-compose logs -f email-service
+```
+
+3. Check RabbitMQ queue:
+- Open RabbitMQ dashboard (see Monitoring section)
+- Go to Queues tab
+- Look for 'daily_sales_report' queue
+
 ## Services
 
 - Invoice Service (port 3000): Handles invoice CRUD + daily report generation
@@ -72,4 +102,8 @@ curl -X POST http://localhost:3000/invoices \
 
 - Daily reports generate every minute (for testing)
 - Email service uses mock SMTP settings
+- Reports include:
+  - Total daily sales
+  - Items sold (grouped by SKU)
+  - Sales summary
 ```
