@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Create an invoice
-echo "Creating invoice..."
+echo "Creating test invoice..."
 RESPONSE=$(curl -s -X POST http://localhost:3000/invoices \
 -H "Content-Type: application/json" \
 -d '{
@@ -21,15 +20,28 @@ RESPONSE=$(curl -s -X POST http://localhost:3000/invoices \
   ]
 }')
 
-# Extract the ID from the response
+echo "Response from create invoice:"
+echo $RESPONSE | json_pp
+
 ID=$(echo $RESPONSE | grep -o '"_id":"[^"]*' | cut -d'"' -f4)
 
-echo "Invoice created with ID: $ID"
+echo -e "\nCreated invoice ID: $ID"
 
-# Get all invoices
-echo -e "\nGetting all invoices..."
+echo -e "\nWaiting 5 seconds..."
+sleep 5
+
+echo -e "\nGetting all invoices:"
 curl -s http://localhost:3000/invoices | json_pp
 
-# Get specific invoice
-echo -e "\nGetting specific invoice..."
-curl -s http://localhost:3000/invoices/$ID | json_pp 
+echo -e "\nGetting specific invoice:"
+curl -s http://localhost:3000/invoices/$ID | json_pp
+
+echo -e "\nWaiting for daily report (60 seconds)..."
+sleep 60
+
+echo -e "\nChecking service logs:"
+echo -e "\nInvoice Service Logs:"
+docker-compose logs --tail=50 invoice-service
+
+echo -e "\nEmail Service Logs:"
+docker-compose logs --tail=50 email-service 
